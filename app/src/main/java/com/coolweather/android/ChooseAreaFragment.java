@@ -81,6 +81,16 @@ public class ChooseAreaFragment extends Fragment{
 
             }
         });
+        backButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(currentLevel == LEVEL_COUNTY){
+                    queryCities();
+                }else if(currentLevel == LEVEL_CITY){
+                    queryProvinces();
+                }
+            }
+        });
         queryProvinces();
     }
 
@@ -108,7 +118,7 @@ public class ChooseAreaFragment extends Fragment{
     private void queryCities(){
         titleText.setText(selectedProvince.getProvinceName());
         backButton.setVisibility(View.VISIBLE);
-        cityList  = DataSupport.where("provinceid = ?",String.valueOf(selectedProvince.getId())).find(City.class);
+        cityList  = DataSupport.where("provinceid= ?",String.valueOf(selectedProvince.getId())).find(City.class);
         if(cityList.size() > 0){
             dataList.clear();
             for(City city : cityList){
